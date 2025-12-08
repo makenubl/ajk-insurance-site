@@ -252,9 +252,13 @@
   form.addEventListener('submit', async function (e) {
     e.preventDefault(); // prevent default form submit
 
+    // Show loading state
+    formStatus.style.color = '#0b3b5d';
+    formStatus.innerText = 'Submitting...';
+
     // Collect form data
     const formData = {
-      fullName: document.getElementById('fullName').value,
+      name: document.getElementById('fullName').value,
       email: document.getElementById('email').value,
       phone: document.getElementById('phone').value,
       dob: document.getElementById('dob').value,
@@ -265,18 +269,25 @@
     };
 
     try {
-      const response = await fetch('http://localhost:3000/submit', {
+      const response = await fetch('/.netlify/functions/submit-form', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
 
-      const result = await response.text();
-      formStatus.innerText = result;
-      form.reset(); // clear form on success
+      const result = await response.json();
+      
+      if (response.ok) {
+        formStatus.style.color = '#28a745';
+        formStatus.innerText = '✓ Thank you! We will contact you shortly.';
+        form.reset(); // clear form on success
+      } else {
+        throw new Error(result.error || 'Submission failed');
+      }
     } catch (err) {
       console.error(err);
-      formStatus.innerText = 'Error submitting form. Please try again.';
+      formStatus.style.color = '#dc3545';
+      formStatus.innerText = '✗ Error submitting form. Please try again.';
     }
   });
 </script>
