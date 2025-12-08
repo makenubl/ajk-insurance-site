@@ -43,8 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // ===== Mobile Menu Toggle =====
   const mobileBtn = document.getElementById('mobileMenuBtn');
-  mobileBtn && mobileBtn.addEventListener('click', function() {
-    const nav = document.querySelector('.nav');
+  const nav = document.querySelector('.nav');
+  
+  mobileBtn && mobileBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
     const expanded = this.getAttribute('aria-expanded') === 'true';
     this.setAttribute('aria-expanded', String(!expanded));
     if (nav) {
@@ -52,6 +54,42 @@ document.addEventListener('DOMContentLoaded', function() {
       nav.style.flexDirection = 'column';
       nav.style.gap = '1rem';
     }
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', function(e) {
+    if (nav && window.innerWidth <= 1100) {
+      if (!e.target.closest('.nav') && !e.target.closest('.hamburger')) {
+        nav.style.display = 'none';
+        if (mobileBtn) mobileBtn.setAttribute('aria-expanded', 'false');
+      }
+    }
+  });
+
+  // Close mobile menu when clicking nav links
+  if (nav) {
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 1100) {
+          nav.style.display = 'none';
+          if (mobileBtn) mobileBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
+
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href !== '#' && href !== '#home') {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
   });
 
   // ===== Lead Form Submission =====
