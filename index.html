@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AJK Insurance Brokers LLC</title>
+  <meta name="description" content="AJK Insurance Brokers LLC - Life, Health, Accident, Final Expense, Travel insurance" />
+  <link rel="icon" href="assets/logo.png" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- EmailJS SDK for form submissions -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <!-- Swiper CDN for carousels -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Preloader / intro logo -->
+  <div id="preloader" aria-hidden="false">
+    <img src="assets/logo.png" alt="AJK Insurance Brokers Logo" class="prelogo" />
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#home">
+        <img src="assets/logo.png" alt="AJK Insurance Brokers" />
+      </a>
+      <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#apply">Apply</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button id="mobileMenuBtn" class="hamburger" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main id="home">
+
+    <!-- Hero carousel -->
+    <section class="hero">
+      <div class="swiper hero-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="assets/hero-1.jpg" alt="Life Insurance - AJK" />
+            <div class="hero-caption">
+              <span class="hero-badge"><i class="fas fa-shield-alt"></i> Trusted Since 2010</span>
+              <h1>AJK Insurance Brokers LLC</h1>
+              <p>Protecting your family with trusted insurance solutions — Life, Health, Travel & more.</p>
+              <div class="hero-buttons">
+                <a class="btn btn-glow" href="#apply"><i class="fas fa-rocket"></i> Get Started</a>
+                <a class="btn btn-outline" href="#services"><i class="fas fa-info-circle"></i> Learn More</a>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="assets/hero-2.jpg" alt="Health Insurance - AJK" />
+            <div class="hero-caption">
+              <h1>Comprehensive Health Plans</h1>
+              <p>Quality plans tailored to you and your family's needs.</p>
+              <a class="btn" href="#services">Explore Plans</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="assets/hero-3.jpg" alt="Travel Insurance - AJK" />
+            <div class="hero-caption">
+              <h1>Secure Travel</h1>
+              <p>Travel with peace of mind — worldwide coverage and easy claims.</p>
+              <a class="btn" href="#contact">Contact Us</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="assets/hero-4.jpg" alt="Family Insurance - AJK" />
+            <div class="hero-caption">
+              <h1>Family First</h1>
+              <p>Protect what matters most — plans for every stage of life.</p>
+              <a class="btn" href="#apply">Get a Quote</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="assets/hero-5.jpg" alt="Protection - AJK" />
+            <div class="hero-caption">
+              <h1>Reliable Protection</h1>
+              <p>Trusted advice and quick claims processing.</p>
+              <a class="btn" href="#services">Learn More</a>
+            </div>
+          
+          <div class="swiper-slide">
+            <img src="assets/service-family.jpg" alt="Family Plans - AJK" />
+            <div class="hero-caption">
+              <h1>Family Protection</h1>
+              <p>Plans designed for the whole family — secure their tomorrow today.</p>
+              <a class="btn" href="#apply">Get a Quote</a>
+            </div>
+          </div>
+    
+          <div class="swiper-slide">
+            <img src="assets/service-protection.jpg" alt="Protection - AJK" />
+            <div class="hero-caption">
+              <h1>Trusted Protection</h1>
+              <p>Comprehensive options to protect what matters most.</p>
+              <a class="btn" href="#services">Learn More</a>
+            </div>
+          </div>
+    
+        </div>
+        <!-- pagination & controls -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+    </div>
+</section>
+
+    <!-- Services carousel -->
+    <section id="services" class="services container">
+      <h2>Our Services</h2>
+      <p class="lead">Life | Health | Accident | Final Expense | Travel</p>
+
+
+      <div class="swiper services-swiper">
+        <div class="swiper-wrapper">
+          <!-- Service card: Life -->
+          <article class="swiper-slide card" data-aos="fade-up" data-aos-delay="0">
+            <div class="card-icon"><i class="fas fa-heart-pulse"></i></div>
+            <img src="assets/service-life.jpg" alt="Life Insurance" />
+            <h3>Life Insurance</h3>
+            <p>Secure your family's future with customizable life policies.</p>
+            <a class="card-btn" href="#apply"><i class="fas fa-arrow-right"></i> Apply Now</a>
+          </article>
+          <!-- Health -->
+          <article class="swiper-slide card" data-aos="fade-up" data-aos-delay="100">
+            <div class="card-icon"><i class="fas fa-hospital"></i></div>
+            <img src="assets/service-health.jpg" alt="Health Insurance" />
+            <h3>Health Insurance</h3>
+            <p>Comprehensive medical coverage and cashless hospital networks.</p>
+            <a class="card-btn" href="#apply"><i class="fas fa-arrow-right"></i> Apply Now</a>
+          </article>
+          <!-- Accident -->
+          <article class="swiper-slide card" data-aos="fade-up" data-aos-delay="200">
+            <div class="card-icon"><i class="fas fa-car-burst"></i></div>
+            <img src="assets/service-accident.jpg" alt="Accident Insurance" />
+            <h3>Accident Insurance</h3>
+            <p>Accidental injury protection and fast claims processing.</p>
+            <a class="card-btn" href="#apply"><i class="fas fa-arrow-right"></i> Apply Now</a>
+          </article>
+          <!-- Final Expense -->
+          <article class="swiper-slide card" data-aos="fade-up" data-aos-delay="300">
+            <div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div>
+            <img src="assets/service-final.jpg" alt="Final Expense" />
+            <h3>Final Expense</h3>
+            <p>Low-cost plans to cover funeral and end-of-life expenses.</p>
+            <a class="card-btn" href="#apply"><i class="fas fa-arrow-right"></i> Apply Now</a>
+          </article>
+          <!-- Travel -->
+          <article class="swiper-slide card" data-aos="fade-up" data-aos-delay="400">
+            <div class="card-icon"><i class="fas fa-plane"></i></div>
+            <img src="assets/service-travel.jpg" alt="Travel Insurance" />
+            <h3>Travel Insurance</h3>
+            <p>Worldwide coverage for trip cancellations, medical emergencies, and baggage loss.</p>
+            <a class="card-btn" href="#apply">Apply</a>
+          </article>
+        </div>
+
+        <div class="swiper-pagination services-pagination"></div>
+      </div>
+
+    </section>
+
+    <!-- About -->
+    <section id="about" class="about container">
+      <div class="about-grid">
+        <div class="about-text" data-aos="fade-right">
+          <span class="section-badge"><i class="fas fa-building"></i> Who We Are</span>
+          <h2>About AJK Insurance Brokers LLC</h2>
+          <p>AJK Insurance Brokers is a trusted brokerage firm delivering insurance solutions across life, health, travel, and more. We prioritize transparency, quick claims assistance, and tailored plans for individuals and families.</p>
+          <p>Our advisors guide you through policy selection and claims — ensuring you choose the right protection for every stage of life.</p>
+        </div>
+        <div class="about-image" data-aos="fade-left">
+          <img src="assets/service-final.jpg" alt="AJK Advisors" />
+          <div class="about-image-badge">
+            <i class="fas fa-award"></i>
+            <span>Award Winning</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  <!-- Contact / Carriers & Partners -->
+<section id="carriers" class="container carriers">
+  <div class="carriers-header" style="text-align:center;margin-bottom:20px">
+    <h2 style="margin:0;color:#0b3b5d;font-family: 'Segoe UI', sans-serif;">Our Carriers & Partners</h2>
+    <p class="muted" style="margin:6px 0;color:#475569;font-family: 'Segoe UI', sans-serif;">Trusted insurance carriers we work with</p>
+  </div>
+  
+  <div class="carrier-pills-grid">
+    <span class="carrier-pill">Aetna</span>
+    <span class="carrier-pill">AIG</span>
+    <span class="carrier-pill">American Home Life</span>
+    <span class="carrier-pill">Athene Annuity & Life Company</span>
+    <span class="carrier-pill">Signa Supplemental Benefits</span>
+    <span class="carrier-pill">Gerber Life</span>
+    <span class="carrier-pill">Nassau Life Annuity Co</span>
+    <span class="carrier-pill">Protective Life Insurance Co</span>
+    <span class="carrier-pill">Guarantee Trust Life Insurance Co</span>
+    <span class="carrier-pill">C & K Health Advisors LLC</span>
+  </div>
+</section>
+
+
+<section id="contact" class="contact container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-badge"><i class="fas fa-envelope"></i> Get In Touch</span>
+        <h2>Contact Us</h2>
+        <p class="section-subtitle">We're here to help you find the perfect insurance solution</p>
+      </div>
+
+      <!-- Application Form -->
+      <div id="apply" class="apply-wrap" data-aos="fade-up" style="margin-bottom: 3rem;">
+        <h3 style="text-align:center;font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:0.5rem;">Online Application</h3>
+        <p class="lead" style="text-align:center;color:#666;margin-bottom:1.5rem;">Fill this short form and our advisor will contact you within 24 hours.</p>
+
+        <form id="leadForm" class="form card-form compact-form" novalidate>
+          <!-- Row 1 -->
+          <div class="form-row">
+            <label class="field">
+              Full Name
+              <input type="text" name="fullName" id="fullName" required />
+            </label>
+            <label class="field">
+              Email
+              <input type="email" name="email" id="email" required />
+            </label>
+          </div>
+
+          <!-- Row 2 -->
+          <div class="form-row">
+            <label class="field">
+              Phone Number
+              <input type="tel" name="phone" id="phone" required />
+            </label>
+            <label class="field">
+              Date of Birth
+              <input type="date" name="dob" id="dob" required />
+            </label>
+          </div>
+
+          <!-- Row 3 -->
+          <div class="form-row">
+            <label class="field">
+              Insurance Type
+              <select name="insuranceType" id="insuranceType" required>
+                <option value="">Select</option>
+                <option>Life</option>
+                <option>Health</option>
+                <option>Travel</option>
+                <option>Accident</option>
+                <option>Final Expense</option>
+              </select>
+            </label>
+            <label class="field">
+              City
+              <input type="text" name="city" id="city" />
+            </label>
+          </div>
+
+          <!-- Row 4 -->
+          <div class="form-row">
+            <label class="field full">
+              Country
+              <input type="text" name="country" id="country" />
+            </label>
+          </div>
+
+          <!-- Full width message -->
+          <label class="field full">
+            Message / Notes
+            <textarea name="message" id="message" rows="4"></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" class="btn primary">Submit Application</button>
+            <div id="formStatus" role="status" aria-live="polite"></div>
+          </div>
+        </form>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-card" data-aos="fade-right">
+          <h3><i class="fas fa-headset"></i> Get in touch</h3>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+            <div class="contact-info">
+              <span class="contact-label">Phone</span>
+              <a href="tel:+18456628071">+1 (845) 662-8071</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div class="contact-info">
+              <span class="contact-label">Email</span>
+              <a href="mailto:khan@ajk-insurance.com">khan@ajk-insurance.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-location-dot"></i></div>
+            <div class="contact-info">
+              <span class="contact-label">Address</span>
+              <span>Office Street, City, Country</span>
+            </div>
+          </div>
+          <div class="social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="map-card" data-aos="fade-left">
+          <!-- Optional: embed Google Map iframe here -->
+          <img src="assets/office.jpg" alt="Office" />
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <img src="assets/logo.png" alt="AJK Insurance" style="height:40px" />
+      </div>
+      <div>&copy; <span id="year"></span> AJK Insurance Brokers LLC — All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/18456628071" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-tooltip">Chat with us!</span>
+  </a>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

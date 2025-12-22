@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin - AJK Insurance</title>
+  <link rel="icon" href="assets/logo.png" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0b3b5d 0%, #1e5a7d 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .admin-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      max-width: 500px;
+      width: 100%;
+      padding: 40px;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .logo img {
+      max-width: 120px;
+      height: auto;
+    }
+    h1 {
+      color: #0b3b5d;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+    input:focus {
+      outline: none;
+      border-color: #0b3b5d;
+    }
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: #0b3b5d;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+    .btn:hover {
+      background: #1e5a7d;
+    }
+    .btn-secondary {
+      background: #6c757d;
+    }
+    .btn-secondary:hover {
+      background: #5a6268;
+    }
+    .status {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 14px;
+      display: none;
+    }
+    .status.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      display: block;
+    }
+    .status.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      display: block;
+    }
+    .hidden {
+      display: none;
+    }
+    .info-box {
+      background: #e7f3ff;
+      border-left: 4px solid #0b3b5d;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #333;
+    }
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .back-link a {
+      color: #0b3b5d;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <div class="logo">
+      <img src="assets/logo.png" alt="AJK Insurance Logo" />
+    </div>
+
+    <!-- Login Form -->
+    <div id="loginSection">
+      <h1>Admin Login</h1>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="adminPassword">Password</label>
+          <input type="password" id="adminPassword" placeholder="Enter admin password" required />
+        </div>
+        <button type="submit" class="btn">Login</button>
+        <div id="loginStatus" class="status"></div>
+      </form>
+      <div class="back-link">
+        <a href="index.html">← Back to Website</a>
+      </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="hidden">
+      <h1>Email Configuration</h1>
+      
+      <div class="info-box">
+        <strong>Important:</strong> After updating these settings, you need to add them as environment variables in your Netlify dashboard:<br>
+        Site Settings → Environment Variables
+      </div>
+
+      <form id="configForm">
+        <div class="form-group">
+          <label for="gmailUser">Gmail Address</label>
+          <input type="email" id="gmailUser" placeholder="your-email@gmail.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="gmailAppPassword">Gmail App Password</label>
+          <input type="text" id="gmailAppPassword" placeholder="xxxx xxxx xxxx xxxx" required />
+          <small style="display:block;margin-top:5px;color:#666;font-size:12px;">
+            Generate an App Password from your <a href="https://myaccount.google.com/apppasswords" target="_blank" style="color:#0b3b5d;">Google Account</a>
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="recipientEmail">Recipient Email (where leads will be sent)</label>
+          <input type="email" id="recipientEmail" placeholder="recipient@example.com" required />
+        </div>
+
+        <button type="submit" class="btn">Save Configuration</button>
+        <button type="button" class="btn btn-secondary" onclick="logout()">Logout</button>
+        <div id="configStatus" class="status"></div>
+      </form>
+
+      <div class="info-box" style="margin-top:30px;">
+        <strong>How to set up Gmail App Password:</strong><br>
+        1. Go to Google Account → Security<br>
+        2. Enable 2-Step Verification<br>
+        3. Go to App Passwords<br>
+        4. Generate a new app password for "Mail"<br>
+        5. Copy the 16-character password<br>
+        6. Add it to Netlify as: <code>GMAIL_APP_PASSWORD</code>
+      </div>
+
+      <div class="back-link">
+        <a href="index.html">← Back to Website</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simple password - change this to your desired password
+    const ADMIN_PASSWORD = 'ajk2025admin';
+
+    // Check if already logged in
+    if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+      showAdminPanel();
+    }
+
+    // Login Form
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const password = document.getElementById('adminPassword').value;
+      const status = document.getElementById('loginStatus');
+
+      if (password === ADMIN_PASSWORD) {
+        sessionStorage.setItem('adminLoggedIn', 'true');
+        showAdminPanel();
+        status.className = 'status success';
+        status.textContent = 'Login successful!';
+      } else {
+        status.className = 'status error';
+        status.textContent = 'Incorrect password!';
+      }
+    });
+
+    // Config Form
+    document.getElementById('configForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const status = document.getElementById('configStatus');
+      
+      const config = {
+        gmailUser: document.getElementById('gmailUser').value,
+        gmailAppPassword: document.getElementById('gmailAppPassword').value,
+        recipientEmail: document.getElementById('recipientEmail').value
+      };
+
+      // Save to localStorage for reference
+      localStorage.setItem('emailConfig', JSON.stringify(config));
+
+      status.className = 'status success';
+      status.innerHTML = `
+        <strong>Configuration saved locally!</strong><br><br>
+        Now add these to Netlify:<br>
+        1. Go to your Netlify site dashboard<br>
+        2. Site Settings → Environment Variables<br>
+        3. Add these variables:<br>
+        <code>GMAIL_USER</code> = ${config.gmailUser}<br>
+        <code>GMAIL_APP_PASSWORD</code> = ${config.gmailAppPassword}<br>
+        <code>RECIPIENT_EMAIL</code> = ${config.recipientEmail}<br><br>
+        4. Redeploy your site for changes to take effect
+      `;
+    });
+
+    function showAdminPanel() {
+      document.getElementById('loginSection').classList.add('hidden');
+      document.getElementById('adminPanel').classList.remove('hidden');
+      
+      // Load saved config if exists
+      const savedConfig = localStorage.getItem('emailConfig');
+      if (savedConfig) {
+        const config = JSON.parse(savedConfig);
+        document.getElementById('gmailUser').value = config.gmailUser || '';
+        document.getElementById('gmailAppPassword').value = config.gmailAppPassword || '';
+        document.getElementById('recipientEmail').value = config.recipientEmail || '';
+      }
+    }
+
+    function logout() {
+      sessionStorage.removeItem('adminLoggedIn');
+      location.reload();
+    }
+  </script>
+</body>
+</html>
