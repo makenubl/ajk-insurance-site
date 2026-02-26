@@ -118,9 +118,31 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // ===== Lead Form Submission (EmailJS - works on S3 static hosting) =====
-  const EMAILJS_SERVICE_ID = 'service_l35eaus';
-  const EMAILJS_TEMPLATE_ID = 'template_bcfbrbg';
-  const EMAILJS_PUBLIC_KEY = 'epoO_YQfPCvyTi7Qk';
+  const EMAIL_SETTINGS_KEY = 'ajkEmailSettings';
+  const DEFAULT_EMAILJS_CONFIG = {
+    serviceId: 'service_l35eaus',
+    templateId: 'template_bcfbrbg',
+    publicKey: 'epoO_YQfPCvyTi7Qk'
+  };
+
+  function getEmailJsConfig() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(EMAIL_SETTINGS_KEY) || '{}');
+      return {
+        serviceId: (saved.emailjsServiceId || DEFAULT_EMAILJS_CONFIG.serviceId).trim(),
+        templateId: (saved.emailjsTemplateId || DEFAULT_EMAILJS_CONFIG.templateId).trim(),
+        publicKey: (saved.emailjsPublicKey || DEFAULT_EMAILJS_CONFIG.publicKey).trim()
+      };
+    } catch (error) {
+      console.warn('Invalid local EmailJS config, using defaults.', error);
+      return { ...DEFAULT_EMAILJS_CONFIG };
+    }
+  }
+
+  const emailJsConfig = getEmailJsConfig();
+  const EMAILJS_SERVICE_ID = emailJsConfig.serviceId;
+  const EMAILJS_TEMPLATE_ID = emailJsConfig.templateId;
+  const EMAILJS_PUBLIC_KEY = emailJsConfig.publicKey;
   
   const leadForm = document.getElementById('leadForm');
 
@@ -150,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     try {
       // Check if EmailJS is configured
-      if (EMAILJS_SERVICE_ID === 'YOUR_SERVICE_ID') {
+      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY || EMAILJS_SERVICE_ID === 'YOUR_SERVICE_ID') {
         throw new Error('EmailJS not configured. Please set up EmailJS credentials.');
       }
 

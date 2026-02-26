@@ -6,6 +6,20 @@ Files included:
 - app.js
 - /api/submit.js   (Vercel serverless function using nodemailer -> Gmail)
 - /assets/*        (images)
+- admin.html       (frontend admin settings page)
+
+Frontend admin page:
+- URL: /admin.html
+- Username: admin
+- Password: admin123
+
+Info needed to make email work:
+- EmailJS Service ID
+- EmailJS Template ID
+- EmailJS Public Key
+- (Optional for Netlify Gmail backend) GMAIL_USER
+- (Optional for Netlify Gmail backend) GMAIL_APP_PASSWORD (Google 16-char app password)
+- (Optional for Netlify Gmail backend) RECIPIENT_EMAIL
 
 Required environment variables (Vercel Project Settings):
 - SMTP_USER = khan@ajk-insurance.com    <-- your Gmail/Workspace email to send from

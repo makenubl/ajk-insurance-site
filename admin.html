@@ -141,6 +141,10 @@
       <h1>Admin Login</h1>
       <form id="loginForm">
         <div class="form-group">
+          <label for="adminUsername">Username</label>
+          <input type="text" id="adminUsername" placeholder="Enter username" required />
+        </div>
+        <div class="form-group">
           <label for="adminPassword">Password</label>
           <input type="password" id="adminPassword" placeholder="Enter admin password" required />
         </div>
@@ -157,19 +161,37 @@
       <h1>Email Configuration</h1>
       
       <div class="info-box">
-        <strong>Important:</strong> After updating these settings, you need to add them as environment variables in your Netlify dashboard:<br>
-        Site Settings → Environment Variables
+        <strong>Live form note:</strong> The website currently sends form leads via EmailJS from the frontend. Set EmailJS values below first.
       </div>
 
       <form id="configForm">
         <div class="form-group">
+          <label for="emailjsServiceId">EmailJS Service ID</label>
+          <input type="text" id="emailjsServiceId" placeholder="service_xxxxxxx" required />
+        </div>
+
+        <div class="form-group">
+          <label for="emailjsTemplateId">EmailJS Template ID</label>
+          <input type="text" id="emailjsTemplateId" placeholder="template_xxxxxxx" required />
+        </div>
+
+        <div class="form-group">
+          <label for="emailjsPublicKey">EmailJS Public Key</label>
+          <input type="text" id="emailjsPublicKey" placeholder="Public key from EmailJS" required />
+        </div>
+
+        <div class="info-box">
+          <strong>Optional backend settings:</strong> Fill Gmail details only if you plan to use the Netlify function email sender.
+        </div>
+
+        <div class="form-group">
           <label for="gmailUser">Gmail Address</label>
-          <input type="email" id="gmailUser" placeholder="your-email@gmail.com" required />
+          <input type="email" id="gmailUser" placeholder="your-email@gmail.com" />
         </div>
 
         <div class="form-group">
           <label for="gmailAppPassword">Gmail App Password</label>
-          <input type="text" id="gmailAppPassword" placeholder="xxxx xxxx xxxx xxxx" required />
+          <input type="text" id="gmailAppPassword" placeholder="16-character Google App Password" />
           <small style="display:block;margin-top:5px;color:#666;font-size:12px;">
             Generate an App Password from your <a href="https://myaccount.google.com/apppasswords" target="_blank" style="color:#0b3b5d;">Google Account</a>
           </small>
@@ -177,7 +199,7 @@
 
         <div class="form-group">
           <label for="recipientEmail">Recipient Email (where leads will be sent)</label>
-          <input type="email" id="recipientEmail" placeholder="recipient@example.com" required />
+          <input type="email" id="recipientEmail" placeholder="recipient@example.com" />
         </div>
 
         <button type="submit" class="btn">Save Configuration</button>
@@ -202,8 +224,9 @@
   </div>
 
   <script>
-    // Simple password - change this to your desired password
-    const ADMIN_PASSWORD = 'ajk2025admin';
+    const ADMIN_USERNAME = 'admin';
+    const ADMIN_PASSWORD = 'admin123';
+    const EMAIL_SETTINGS_KEY = 'ajkEmailSettings';
 
     // Check if already logged in
     if (sessionStorage.getItem('adminLoggedIn') === 'true') {
@@ -213,17 +236,18 @@
     // Login Form
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      const username = document.getElementById('adminUsername').value.trim();
       const password = document.getElementById('adminPassword').value;
       const status = document.getElementById('loginStatus');
 
-      if (password === ADMIN_PASSWORD) {
+      if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
         sessionStorage.setItem('adminLoggedIn', 'true');
         showAdminPanel();
         status.className = 'status success';
         status.textContent = 'Login successful!';
       } else {
         status.className = 'status error';
-        status.textContent = 'Incorrect password!';
+        status.textContent = 'Incorrect username or password!';
       }
     });
 
@@ -233,25 +257,26 @@
       const status = document.getElementById('configStatus');
       
       const config = {
+        emailjsServiceId: document.getElementById('emailjsServiceId').value.trim(),
+        emailjsTemplateId: document.getElementById('emailjsTemplateId').value.trim(),
+        emailjsPublicKey: document.getElementById('emailjsPublicKey').value.trim(),
         gmailUser: document.getElementById('gmailUser').value,
         gmailAppPassword: document.getElementById('gmailAppPassword').value,
         recipientEmail: document.getElementById('recipientEmail').value
       };
 
-      // Save to localStorage for reference
+      // Save to localStorage for frontend + reference
+      localStorage.setItem(EMAIL_SETTINGS_KEY, JSON.stringify(config));
       localStorage.setItem('emailConfig', JSON.stringify(config));
 
       status.className = 'status success';
       status.innerHTML = `
-        <strong>Configuration saved locally!</strong><br><br>
-        Now add these to Netlify:<br>
-        1. Go to your Netlify site dashboard<br>
-        2. Site Settings → Environment Variables<br>
-        3. Add these variables:<br>
-        <code>GMAIL_USER</code> = ${config.gmailUser}<br>
-        <code>GMAIL_APP_PASSWORD</code> = ${config.gmailAppPassword}<br>
-        <code>RECIPIENT_EMAIL</code> = ${config.recipientEmail}<br><br>
-        4. Redeploy your site for changes to take effect
+        <strong>Configuration saved locally in this browser.</strong><br><br>
+        EmailJS values will be used by the website form in this browser.<br><br>
+        If using Netlify Gmail function, add these in Netlify Environment Variables:<br>
+        <code>GMAIL_USER</code> = ${config.gmailUser || '(not set)'}<br>
+        <code>GMAIL_APP_PASSWORD</code> = ${config.gmailAppPassword || '(not set)'}<br>
+        <code>RECIPIENT_EMAIL</code> = ${config.recipientEmail || '(not set)'}<br>
       `;
     });
 
@@ -260,9 +285,12 @@
       document.getElementById('adminPanel').classList.remove('hidden');
       
       // Load saved config if exists
-      const savedConfig = localStorage.getItem('emailConfig');
+      const savedConfig = localStorage.getItem(EMAIL_SETTINGS_KEY) || localStorage.getItem('emailConfig');
       if (savedConfig) {
         const config = JSON.parse(savedConfig);
+        document.getElementById('emailjsServiceId').value = config.emailjsServiceId || '';
+        document.getElementById('emailjsTemplateId').value = config.emailjsTemplateId || '';
+        document.getElementById('emailjsPublicKey').value = config.emailjsPublicKey || '';
         document.getElementById('gmailUser').value = config.gmailUser || '';
         document.getElementById('gmailAppPassword').value = config.gmailAppPassword || '';
         document.getElementById('recipientEmail').value = config.recipientEmail || '';
