@@ -122,16 +122,18 @@ document.addEventListener('DOMContentLoaded', function() {
   const DEFAULT_EMAILJS_CONFIG = {
     serviceId: 'service_l35eaus',
     templateId: 'template_bcfbrbg',
-    publicKey: 'epoO_YQfPCvyTi7Qk'
+    publicKey: 'PYcH71DH2oAKBx8OP'
   };
 
   function getEmailJsConfig() {
     try {
       const saved = JSON.parse(localStorage.getItem(EMAIL_SETTINGS_KEY) || '{}');
+      const savedPublicKey = (saved.emailjsPublicKey || '').trim();
+      const normalizedSavedPublicKey = savedPublicKey === 'epoO_YQfPCvyTi7Qk' ? '' : savedPublicKey;
       return {
         serviceId: (saved.emailjsServiceId || DEFAULT_EMAILJS_CONFIG.serviceId).trim(),
         templateId: (saved.emailjsTemplateId || DEFAULT_EMAILJS_CONFIG.templateId).trim(),
-        publicKey: (saved.emailjsPublicKey || DEFAULT_EMAILJS_CONFIG.publicKey).trim()
+        publicKey: (normalizedSavedPublicKey || DEFAULT_EMAILJS_CONFIG.publicKey).trim()
       };
     } catch (error) {
       console.warn('Invalid local EmailJS config, using defaults.', error);
